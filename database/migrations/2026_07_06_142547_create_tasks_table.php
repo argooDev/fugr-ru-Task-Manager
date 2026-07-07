@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title', 255);
             $table->text('description')->nullable();
             $table->dateTime('deadline');
-            $table->boolean('status')->default(false);
+            $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->string('category');
             $table->timestamps();
