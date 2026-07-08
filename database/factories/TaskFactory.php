@@ -18,7 +18,7 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->sentence(3),
             'description' => fake()->paragraph(),
-            'deadline' => fake()->dateTimeBetween('now', '+1 year'),
+            'deadline' => fake()->dateTimeBetween('now', '+1 year')->format('Y-m-d H:i:s'),
             'status' => fake()->randomElement(['pending', 'completed']),
             'priority' => fake()->randomElement(['low', 'medium', 'high']),
             'category' => fake()->word(),
