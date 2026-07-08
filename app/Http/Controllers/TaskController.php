@@ -10,9 +10,11 @@ class TaskController extends Controller
     public function index() {
         $search = request()->input('search');
 
+        $sort = request()->input('sort', 'deadline');
+
         $tasks = Task::query()
             ->when($search, fn($query) => $query->where('title', 'like', "%{$search}%"))
-            ->orderBy('deadline', 'asc')
+            ->orderBy($sort, 'asc')
             ->paginate(10);
         
         return response()->json($tasks);
