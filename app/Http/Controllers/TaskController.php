@@ -12,7 +12,8 @@ class TaskController extends Controller
 
         $tasks = Task::query()
             ->when($search, fn($query) => $query->where('title', 'like', "%{$search}%"))
-            ->paginate(5);
+            ->orderBy('deadline', 'asc')
+            ->paginate(10);
         
         return response()->json($tasks);
     }
