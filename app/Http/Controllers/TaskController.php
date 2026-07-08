@@ -11,22 +11,20 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-
     protected Service $service;
     public function __construct(Service $service)
     {
         $this->service = $service;
     }
 
-
-    public function index(TaskIndexRequest $req) {
+    public function index(TaskIndexRequest $req)
+    {
         $tasks = $this->service->index($req);
-        
         return response()->json($tasks);
     }
 
-    public function store(TaskStoreRequest $req) {
-        
+    public function store(TaskStoreRequest $req)
+    {
         $task = $this->service->store($req->validated());
 
         return response()->json([
@@ -35,18 +33,20 @@ class TaskController extends Controller
         ], 201);
     }
 
-    public function show(Task $task) {
-        return $task;
+    public function show(Task $task)
+    {
+        return response()->json($task);
     }
 
-    public function update(Task $task, TaskUpdateRequest $req) {
-        
+    public function update(Task $task, TaskUpdateRequest $req)
+    {
         $this->service->update($task, $req->validated());
 
         return response()->json(['message' => "Task updated successfully"]);
     }
 
-    public function destroy(Task $task) {
+    public function destroy(Task $task)
+    {
         $this->service->delete($task);
         return response()->json(['message' => 'Task deleted successfully']);
     }
