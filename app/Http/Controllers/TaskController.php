@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     public function index() {
-        return Task::all();
+        return Task::paginate(5);
     }
 
     public function store() {
