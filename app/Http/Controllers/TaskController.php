@@ -30,7 +30,10 @@ class TaskController extends Controller
 
         $task = Task::create($data);
 
-        return response()->json($task, 201);
+        return response()->json([
+            'id' => $task->id,
+            'message' => 'Task created successfully'
+        ], 201);
     }
 
     public function show(Task $task) {
@@ -47,10 +50,13 @@ class TaskController extends Controller
             'category' => 'sometimes|nullable|string|max:100',
         ]);
 
-        return response()->json($task->update($data));
+        $task->update($data);
+
+        return response()->json(['message' => "Task updated successfully"]);
     }
 
     public function destroy(Task $task) {
-        return response()->json($task->delete());
+        $task->delete();
+        return response()->json(['message' => 'Task deleted successfully']);
     }
 }
