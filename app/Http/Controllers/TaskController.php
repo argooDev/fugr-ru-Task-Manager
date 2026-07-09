@@ -67,6 +67,32 @@ class TaskController extends Controller
         return TaskResource::collection($tasks);
     }
 
+    #[OA\Post(
+        path: '/api/tasks/',
+        summary: 'Create task',
+        tags: ['tasks'],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                ref: "#/components/schemas/TaskRequest"
+            )
+        ),
+        responses: [new OA\Response(
+            response: 201,
+            description: 'Create new task',
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'id', type: 'integer', example: 1),
+                    new OA\Property(property: 'message', type: 'string', example: 'Task created successfully')
+                ],
+                type: 'object'
+            )
+        ),
+        new OA\Response(
+            response: 422, 
+            description: 'validation error'
+        )]
+    )]
     public function store(TaskRequest $req)
     {
         $task = $this->service->store($req->validated());

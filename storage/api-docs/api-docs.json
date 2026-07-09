@@ -80,6 +80,50 @@
                     }
                 }
             }
+        },
+        "/api/tasks/": {
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Create task",
+                "operationId": "b263247033817cfd225af5d2a51a93fb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "validation error"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -115,15 +159,24 @@
                     },
                     "deadline": {
                         "type": "nullable|date",
-                        "example": "task deadline"
+                        "example": "2025-12-31T23:59:59"
                     },
                     "status": {
                         "type": "nullable|in:pending,completed",
-                        "example": "task status"
+                        "example": "pending",
+                        "enum": [
+                            "pending",
+                            "completed"
+                        ]
                     },
                     "priority": {
                         "type": "nullable|in:low,medium,high",
-                        "example": "tast priority"
+                        "example": "medium",
+                        "enum": [
+                            "low",
+                            "medium",
+                            "high"
+                        ]
                     },
                     "category": {
                         "type": "nullable|string|max:100",
