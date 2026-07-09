@@ -1,0 +1,172 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Rest API documentation",
+        "version": "1"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Get list of all tasks",
+                "operationId": "471d938a3bfaeb6fbd981d7c3e2728b0",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Find by title",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "deadline",
+                                "created_at",
+                                "id",
+                                "title"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all tasks success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskResource"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "current_page": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TaskIndexRequest": {
+                "required": [],
+                "properties": {
+                    "search": {
+                        "type": "nullable|string|max:255",
+                        "example": "search by title"
+                    },
+                    "sort": {
+                        "type": "nullable|in:deadline,created_at,id,title",
+                        "example": "sorting"
+                    },
+                    "per_page": {
+                        "type": "nullable|integer|min:1|max:100",
+                        "example": "paginate"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskRequest": {
+                "required": [],
+                "properties": {
+                    "title": {
+                        "type": "required|string|max:255",
+                        "example": "task title"
+                    },
+                    "description": {
+                        "type": "nullable|string",
+                        "example": "task description"
+                    },
+                    "deadline": {
+                        "type": "nullable|date",
+                        "example": "task deadline"
+                    },
+                    "status": {
+                        "type": "nullable|in:pending,completed",
+                        "example": "task status"
+                    },
+                    "priority": {
+                        "type": "nullable|in:low,medium,high",
+                        "example": "tast priority"
+                    },
+                    "category": {
+                        "type": "nullable|string|max:100",
+                        "example": "task category"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResource": {
+                "properties": {
+                    "title": {
+                        "type": "required|string|max:255",
+                        "example": "task title"
+                    },
+                    "description": {
+                        "type": "nullable|string",
+                        "example": "task description"
+                    },
+                    "deadline": {
+                        "type": "nullable|date",
+                        "example": "task deadline"
+                    },
+                    "status": {
+                        "type": "nullable|in:pending,completed",
+                        "example": "task status"
+                    },
+                    "priority": {
+                        "type": "nullable|in:low,medium,high",
+                        "example": "tast priority"
+                    },
+                    "category": {
+                        "type": "nullable|string|max:100",
+                        "example": "task category"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "tasks",
+            "description": "tasks"
+        }
+    ]
+}
