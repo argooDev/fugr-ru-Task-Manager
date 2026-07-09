@@ -157,6 +157,58 @@
                         }
                     }
                 }
+            },
+            "patch": {
+                "tags": [
+                    "tasks"
+                ],
+                "description": "Update task by ID",
+                "operationId": "098f38f9e7f9f582948d50b151db5ef7",
+                "parameters": [
+                    {
+                        "parameter": "task",
+                        "name": "task",
+                        "in": "path",
+                        "description": "Update taks by ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },

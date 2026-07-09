@@ -133,6 +133,41 @@ class TaskController extends Controller
         return new TaskResource($task);
     }
 
+    #[OA\Patch(
+        path: '/api/tasks/{task}',
+        description: 'Update task by ID',
+        tags: ['tasks'],
+        parameters: [
+            new OA\Parameter(
+                parameter: 'task',
+                name: 'task',
+                description: 'Update taks by ID',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(
+                    type: 'integer',
+                    example: 2
+                )
+            )
+        ],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                ref: "#/components/schemas/TaskRequest"
+            )
+        ),
+        responses: [new OA\Response(
+            response: 200,
+            description: 'Update task',
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'id', type: 'integer', example: 1),
+                    new OA\Property(property: 'message', type: 'string', example: 'Task updated successfully')
+                ],
+                type: 'object'
+            )
+        )]
+    )]
     public function update(Task $task, TaskRequest $req)
     {
         $this->service->update($task, $req->validated());
