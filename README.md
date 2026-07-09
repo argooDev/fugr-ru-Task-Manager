@@ -1,57 +1,41 @@
-Task Manager API
+# REST API для управления списком задач
+Тестовое задание на позицию php разработчика - https://github.com/fugr-ru/php
 
-REST API для управления задачами.
-Тестовое задание на позицию php разработчика — https://github.com/fugr-ru/php
-Стек
+# Стек
+PHP 8.3 
+Laravel 11
+MySQL 8.0
+Docker
+Swagger
 
-    PHP 8.3
+# Запуск
+git clone https://github.com/argooDev/fugr-ru-Task-Manager.git
+cd fugr-ru-Task-Manager
 
-    Laravel 11
+```bash
+docker compose up -d
+docker compose exec app php artisan migrate
+```
 
-    MySQL 8.0
+Браузер/Postman - http://localhost:8081/api/tasks
+Swagger - http://localhost:8081/api/documentation
 
-    Docker
+```bash
+# Тесты
+docker compose exec app php artisan test
+```
 
-    Swagger
+# Эндпоинты
 
-Запуск
-bash
+| Метод | URL | Описание |
+|-------|-----|----------|
+| GET | `/api/tasks` | Список задач |
+| POST | `/api/tasks` | Создать задачу |
+| GET | `/api/tasks/{id}` | Получить задачу |
+| PATCH | `/api/tasks/{id}` | Обновить задачу |
+| DELETE | `/api/tasks/{id}` | Удалить задачу |
 
-docker-compose up -d
-docker-compose exec app php artisan migrate
-
-API: http://localhost:8081/api
-Swagger: http://localhost:8081/api/documentation
-Эндпоинты
-Метод	URL	Описание
-GET	/api/tasks	Список задач
-POST	/api/tasks	Создать
-GET	/api/tasks/{id}	Получить
-PATCH	/api/tasks/{id}	Обновить
-DELETE	/api/tasks/{id}	Удалить
-
-Параметры для GET /api/tasks:
-
-    search — поиск по названию
-
-    sort — сортировка (deadline, created_at, id, title)
-
-    per_page — кол-во на странице
-
-Пример:
-/api/tasks?search=купить&sort=deadline&per_page=5
-Тесты
-bash
-
-docker-compose exec app php artisan test
-
-Структура
-text
-
-app/
-├── Http/Controllers/TaskController.php
-├── Http/Requests/TaskRequest.php
-├── Http/Resources/TaskResource.php
-├── Models/Task.php
-└── Services/Service.php
-
+Параметры для `GET /api/tasks`:
+- `search` — поиск по названию
+- `sort` — сортировка (`deadline`, `created_at`, `id`, `title`)
+- `per_page` — кол-во на странице
