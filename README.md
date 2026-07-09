@@ -9,8 +9,10 @@ Docker
 Swagger
 
 # Запуск
+```bash
 git clone https://github.com/argooDev/fugr-ru-Task-Manager.git
 cd fugr-ru-Task-Manager
+```
 
 ```bash
 docker compose up -d
