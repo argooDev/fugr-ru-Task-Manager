@@ -158,6 +158,43 @@
                     }
                 }
             },
+            "delete": {
+                "tags": [
+                    "tasks"
+                ],
+                "description": "Delete task by ID",
+                "operationId": "3aa12cf460ff0476704f02693959d7de",
+                "parameters": [
+                    {
+                        "parameter": "task",
+                        "name": "task",
+                        "in": "path",
+                        "description": "Delete task by ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete task by ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "Task deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "patch": {
                 "tags": [
                     "tasks"
@@ -207,6 +244,12 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
                     }
                 }
             }

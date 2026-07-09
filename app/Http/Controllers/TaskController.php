@@ -7,6 +7,7 @@ use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Services\Service;
+use Mockery\Generator\Parameter;
 use OpenApi\Attributes as OA;
 
 
@@ -156,17 +157,21 @@ class TaskController extends Controller
                 ref: "#/components/schemas/TaskRequest"
             )
         ),
-        responses: [new OA\Response(
-            response: 200,
-            description: 'Update task',
-            content: new OA\JsonContent(
-                properties: [
-                    new OA\Property(property: 'id', type: 'integer', example: 1),
-                    new OA\Property(property: 'message', type: 'string', example: 'Task updated successfully')
-                ],
-                type: 'object'
-            )
-        )]
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Update task',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'id', type: 'integer', example: 1),
+                        new OA\Property(property: 'message', type: 'string', example: 'Task updated successfully')
+                    ],
+                    type: 'object'
+                )
+            ),
+            new OA\Response(response: 404, description: 'Task not found'),
+            new OA\Response(response: 422, description: 'Validation error')
+        ]
     )]
     public function update(Task $task, TaskRequest $req)
     {
@@ -175,6 +180,32 @@ class TaskController extends Controller
         return response()->json(['message' => "Task updated successfully"]);
     }
 
+    #[OA\Delete(
+        path: '/api/tasks/{task}',
+        description: 'Delete task by ID',
+        tags: ['tasks'],
+        parameters: [
+            new OA\Parameter(
+                parameter: 'task',
+                name: 'task',
+                description: 'Delete task by ID',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(
+                    type: 'integer',
+                    example: 2
+                )
+            )
+        ],
+        responses: [new OA\Response(
+            response: 200,
+            description: 'Delete task by ID',
+            content: new OA\JsonContent(
+                properties:[new OA\Property(property: 'message', type: 'Task deleted successfully')],
+                type: 'object'
+            )
+        )]
+    )]
     public function destroy(Task $task)
     {
         $this->service->delete($task);
