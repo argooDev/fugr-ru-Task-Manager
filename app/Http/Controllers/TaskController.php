@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskIndexRequest;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Requests\TaskUpdateRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Services\Service;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class TaskController extends Controller
     public function index(TaskIndexRequest $req)
     {
         $tasks = $this->service->index($req);
-        return response()->json($tasks);
+        return TaskResource::collection($tasks);
     }
 
     public function store(TaskStoreRequest $req)
@@ -35,7 +36,7 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-        return response()->json($task);
+        return new TaskResource($task);
     }
 
     public function update(Task $task, TaskUpdateRequest $req)
