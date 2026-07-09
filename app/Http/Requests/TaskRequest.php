@@ -36,8 +36,19 @@ class TaskRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+        public function rules(): array
     {
+        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
+            return [
+                'title' => 'sometimes|string|max:255',
+                'description' => 'sometimes|nullable|string',
+                'deadline' => 'sometimes|date',
+                'status' => 'sometimes|in:pending,completed',
+                'priority' => 'sometimes|in:low,medium,high',
+                'category' => 'sometimes|nullable|string|max:100',
+            ];
+        }
+
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
