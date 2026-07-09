@@ -103,6 +103,31 @@ class TaskController extends Controller
         ], 201);
     }
 
+    #[OA\Get(
+        path: '/api/tasks/{task}',
+        description: 'Get task by ID',
+        tags: ['tasks'],
+        parameters: [
+            new OA\Parameter(
+                parameter: 'task',
+                name: 'task',
+                description: 'Get single taks by ID',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(
+                    type: 'integer',
+                    example: 2
+                )
+            )
+        ],
+        responses: [new OA\Response(
+            response: 200,
+            description: "Get task by ID",
+            content: new OA\JsonContent(
+                ref: "#/components/schemas/TaskResource"
+            )
+        )]
+    )]
     public function show(Task $task)
     {
         return new TaskResource($task);

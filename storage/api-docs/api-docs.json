@@ -124,6 +124,40 @@
                     }
                 }
             }
+        },
+        "/api/tasks/{task}": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "description": "Get task by ID",
+                "operationId": "9736e8dac4ca267e196496c4b790c757",
+                "parameters": [
+                    {
+                        "parameter": "task",
+                        "name": "task",
+                        "in": "path",
+                        "description": "Get single taks by ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get task by ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -197,15 +231,24 @@
                     },
                     "deadline": {
                         "type": "nullable|date",
-                        "example": "task deadline"
+                        "example": "2025-12-31T23:59:59"
                     },
                     "status": {
                         "type": "nullable|in:pending,completed",
-                        "example": "task status"
+                        "example": "pending",
+                        "enum": [
+                            "pending",
+                            "completed"
+                        ]
                     },
                     "priority": {
                         "type": "nullable|in:low,medium,high",
-                        "example": "tast priority"
+                        "example": "medium",
+                        "enum": [
+                            "low",
+                            "medium",
+                            "high"
+                        ]
                     },
                     "category": {
                         "type": "nullable|string|max:100",

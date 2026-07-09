@@ -11,9 +11,9 @@ use OpenApi\Attributes as OA;
     properties: [
         new OA\Property(property: 'title', type: 'required|string|max:255', example: 'task title'),
         new OA\Property(property: 'description', type: 'nullable|string', example: 'task description'),
-        new OA\Property(property: 'deadline', type: 'nullable|date', example: 'task deadline'),
-        new OA\Property(property: 'status', type: 'nullable|in:pending,completed', example: 'task status'),
-        new OA\Property(property: 'priority', type: 'nullable|in:low,medium,high', example: 'tast priority'),
+        new OA\Property(property: 'deadline', type: 'nullable|date', example: '2025-12-31T23:59:59'),
+        new OA\Property(property: 'status', type: 'nullable|in:pending,completed', enum: ['pending', 'completed'], example: 'pending'),
+        new OA\Property(property: 'priority', type: 'nullable|in:low,medium,high', enum: ['low', 'medium', 'high'], example: 'medium'),
         new OA\Property(property: 'category', type: 'nullable|string|max:100', example: 'task category'),
     ],
     type: 'object',
